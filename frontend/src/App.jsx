@@ -30,11 +30,10 @@ function App() {
       <header className="header">
         <div className="header-content">
           <a href="/" className="logo">
-            <span className="logo-icon">📖</span>
             <span className="logo-text">RunbookQuery</span>
           </a>
           <div style={{ fontSize: '0.75rem', color: 'var(--color-text-muted)' }}>
-            Hybrid Search for SRE/On-call
+            Hybrid Search for Careful Debugging
           </div>
         </div>
       </header>
@@ -46,7 +45,7 @@ function App() {
               Find the runbook you need, fast
             </h1>
             <p className="hero-subtitle">
-              Search troubleshooting docs, runbooks, and GitHub issues with hybrid BM25 + semantic search
+              Search troubleshooting docs, runbooks, and GitHub issues with <br /> <u>hybrid BM25 + semantic search</u>
             </p>
           </div>
         )}
