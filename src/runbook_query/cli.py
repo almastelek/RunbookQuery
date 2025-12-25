@@ -128,21 +128,21 @@ def cmd_search(args):
     response = asyncio.run(service.search(request))
 
     # Print results
-    print(f"\n🔍 Query: {args.query}")
-    print(f"📊 Mode: {response.retrieval_mode} | Latency: {response.latency_ms:.1f}ms\n")
+    print(f"\n Query: {args.query}")
+    print(f" Mode: {response.retrieval_mode} | Latency: {response.latency_ms:.1f}ms\n")
 
     for i, result in enumerate(response.results, 1):
         print(f"{i}. {result.title}")
-        print(f"   📁 {result.source_type} | {result.project}")
-        print(f"   🔗 {result.url}")
-        print(f"   📊 Score: {result.scores.final_score:.4f}")
+        print(f"    {result.source_type} | {result.project}")
+        print(f"    {result.url}")
+        print(f"    Score: {result.scores.final_score:.4f}")
         if result.scores.bm25_score is not None:
-            print(f"      BM25: {result.scores.bm25_score:.4f} (rank {result.scores.bm25_rank})")
+            print(f"     BM25: {result.scores.bm25_score:.4f} (rank {result.scores.bm25_rank})")
         if result.scores.vector_score is not None:
-            print(f"      Vector: {result.scores.vector_score:.4f} (rank {result.scores.vector_rank})")
+            print(f"     Vector: {result.scores.vector_score:.4f} (rank {result.scores.vector_rank})")
         # Clean snippet of HTML tags for terminal
         snippet = result.snippet.replace("<mark>", "\033[1;33m").replace("</mark>", "\033[0m")
-        print(f"   📝 {snippet[:200]}...")
+        print(f"   {snippet[:200]}...")
         print()
 
 
