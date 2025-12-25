@@ -1,6 +1,6 @@
 """Health and metrics API routes."""
 
-from fastapi import APIRouter
+from fastapi import APIRouter, Response
 
 from runbook_query.api.schemas import (
     ComponentStatusSchema,
@@ -8,6 +8,7 @@ from runbook_query.api.schemas import (
     MetricsResponseSchema,
 )
 from runbook_query.retrieval import get_bm25_retriever, get_query_cache, get_vector_retriever
+from runbook_query.observability import get_metrics
 
 router = APIRouter(tags=["health"])
 
@@ -42,21 +43,8 @@ async def health_check():
     )
 
 
-@router.get("/metrics", response_model=MetricsResponseSchema)
-async def get_metrics():
-    """
-    Get service metrics.
-
-    Returns request counts, latencies, and cache stats.
-    """
-    cache = get_query_cache()
-
-    return MetricsResponseSchema(
-        requests_total=0,  # TODO: Implement request counting
-        requests_by_status={},
-        latency_p50_ms=0.0,  # TODO: Implement latency tracking
-        latency_p95_ms=0.0,
-        latency_p99_ms=0.0,
-        cache_hit_rate=cache.hit_rate,
-        active_index_version=None,
-    )
+@router.get("/metrics")
+async def metrics():
+    """Get Prometheus metrics."""
+    data, content_type = get_metrics()
+    return Response(content=data, media_type=content_type)

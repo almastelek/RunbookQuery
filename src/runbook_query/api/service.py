@@ -63,49 +63,69 @@ class SearchService:
             request.top_k,
         )
         if cached:
-            cache_hit = True
-            results = cached
-            retrieval_mode = "hybrid"  # Assume hybrid for cached results
-        else:
+            from runbook_query.observability import CACHE_HITS
+            CACHE_HITS.inc()
+            logger.info("search_cache_hit", query=request.query)
+            
+            latency_ms = (time.time() - start_time) * 1000
+            return SearchResponse(
+                query=request.query,
+                results=cached,
+                total_results=len(cached),
+                latency_ms=latency_ms,
+                retrieval_mode="hybrid",  # Best guess for cached results
+                cache_hit=True
+            )
+
+        from runbook_query.observability import CACHE_MISSES, SEARCH_REQUESTS, SEARCH_LATENCY
+        CACHE_MISSES.inc()
+
+        try:
             # Perform retrieval with fallback
             results, retrieval_mode = await self._retrieve_with_fallback(
                 request.query, request.top_k
             )
 
-            # Cache results
+            # Enrich results with document metadata
+            enriched_results = await self._enrich_results(results, request.query)
+
+            # Apply filters
+            if request.filters:
+                enriched_results = self._apply_filters(enriched_results, request.filters)
+            
+            # Cache the final enriched results
             self.cache.set(
                 request.query,
-                results,
+                enriched_results,
                 request.filters,
                 request.top_k,
             )
 
-        # Enrich results with document metadata
-        enriched_results = await self._enrich_results(results, request.query)
+            latency_ms = (time.time() - start_time) * 1000
 
-        # Apply filters
-        if request.filters:
-            enriched_results = self._apply_filters(enriched_results, request.filters)
+            SEARCH_REQUESTS.labels(status="success", mode=retrieval_mode).inc()
+            SEARCH_LATENCY.labels(mode=retrieval_mode).observe(latency_ms / 1000.0)
 
-        latency_ms = (time.time() - start_time) * 1000
+            logger.info(
+                "search_complete",
+                query=request.query,
+                results_count=len(enriched_results),
+                latency_ms=latency_ms,
+                cache_hit=cache_hit,
+                mode=retrieval_mode,
+            )
 
-        logger.info(
-            "search_complete",
-            query=request.query,
-            results_count=len(enriched_results),
-            latency_ms=latency_ms,
-            cache_hit=cache_hit,
-            mode=retrieval_mode,
-        )
-
-        return SearchResponse(
-            query=request.query,
-            results=enriched_results[: request.top_k],
-            total_results=len(enriched_results),
-            latency_ms=latency_ms,
-            retrieval_mode=retrieval_mode,
-            cache_hit=cache_hit,
-        )
+            return SearchResponse(
+                query=request.query,
+                results=enriched_results[: request.top_k],
+                total_results=len(enriched_results),
+                latency_ms=latency_ms,
+                retrieval_mode=retrieval_mode,
+                cache_hit=cache_hit,
+            )
+        except Exception as e:
+            SEARCH_REQUESTS.labels(status="error", mode="unknown").inc()
+            raise e
 
     async def _retrieve_with_fallback(
         self, query: str, top_k: int
