@@ -1,0 +1,483 @@
+{
+  "summary": {
+    "timestamp": "2025-12-25T13:18:02.170759",
+    "total_queries": 30,
+    "mean_mrr": 0.9277777777777777,
+    "mean_ndcg_10": 2.036353853138736,
+    "mean_recall_10": 3.3,
+    "avg_latency_ms": 237.5619331995646,
+    "by_difficulty": {
+      "easy": {
+        "mrr": 1.0,
+        "ndcg": 1.9571645045913442,
+        "recall": 3.125,
+        "count": 8
+      },
+      "medium": {
+        "mrr": 0.9,
+        "ndcg": 2.003258311435412,
+        "recall": 3.2666666666666666,
+        "count": 15
+      },
+      "hard": {
+        "mrr": 0.9047619047619048,
+        "ndcg": 2.1977749837000213,
+        "recall": 3.5714285714285716,
+        "count": 7
+      }
+    },
+    "index_version": "v20251225_112936"
+  },
+  "results": [
+    {
+      "query": "CrashLoopBackOff readiness probe",
+      "expected_doc_id": "kubernetes-docs:crashloopbackoff.md",
+      "difficulty": "easy",
+      "retrieved_top_3": [
+        "kubernetes-docs:crashloopbackoff.md",
+        "kubernetes-docs:503-errors.md",
+        "kubernetes-docs:oomkilled.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 1.3868528072345416,
+      "recall_10": 2.0,
+      "latency_ms": 4398.823022842407
+    },
+    {
+      "query": "container crashing after start",
+      "expected_doc_id": "kubernetes-docs:crashloopbackoff.md",
+      "difficulty": "medium",
+      "retrieved_top_3": [
+        "kubernetes-docs:crashloopbackoff.md",
+        "kubernetes-docs:crashloopbackoff.md",
+        "kubernetes-docs:prometheus-alerting.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 1.6309297535714575,
+      "recall_10": 2.0,
+      "latency_ms": 623.0819225311279
+    },
+    {
+      "query": "readiness probe 503 error",
+      "expected_doc_id": "kubernetes-docs:503-errors.md",
+      "difficulty": "hard",
+      "retrieved_top_3": [
+        "kubernetes-docs:503-errors.md",
+        "kubernetes-docs:crashloopbackoff.md",
+        "kubernetes-docs:503-errors.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 2.3175293653079345,
+      "recall_10": 4.0,
+      "latency_ms": 623.3158111572266
+    },
+    {
+      "query": "OOMKilled exit code 137",
+      "expected_doc_id": "kubernetes-docs:oomkilled.md",
+      "difficulty": "easy",
+      "retrieved_top_3": [
+        "kubernetes-docs:oomkilled.md",
+        "kubernetes-docs:crashloopbackoff.md",
+        "kubernetes-docs:crashloopbackoff.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 1.2890648263178879,
+      "recall_10": 2.0,
+      "latency_ms": 18.160104751586914
+    },
+    {
+      "query": "memory limit exceeded kubernetes",
+      "expected_doc_id": "kubernetes-docs:oomkilled.md",
+      "difficulty": "medium",
+      "retrieved_top_3": [
+        "kubernetes-docs:oomkilled.md",
+        "kubernetes-docs:oomkilled.md",
+        "kubernetes-docs:crashloopbackoff.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 1.9871369406794797,
+      "recall_10": 3.0,
+      "latency_ms": 17.555952072143555
+    },
+    {
+      "query": "java heap dump out of memory",
+      "expected_doc_id": "kubernetes-docs:oomkilled.md",
+      "difficulty": "hard",
+      "retrieved_top_3": [
+        "kubernetes-docs:oomkilled.md",
+        "kubernetes-docs:oomkilled.md",
+        "kubernetes-docs:oomkilled.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 2.1309297535714578,
+      "recall_10": 3.0,
+      "latency_ms": 606.3408851623535
+    },
+    {
+      "query": "503 service unavailable upstream connect",
+      "expected_doc_id": "kubernetes-docs:503-errors.md",
+      "difficulty": "easy",
+      "retrieved_top_3": [
+        "kubernetes-docs:503-errors.md",
+        "kubernetes-docs:503-errors.md",
+        "kubernetes-docs:503-errors.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 2.5616063116448506,
+      "recall_10": 4.0,
+      "latency_ms": 17.661333084106445
+    },
+    {
+      "query": "connection pool exhaustion symptoms",
+      "expected_doc_id": "kubernetes-docs:503-errors.md",
+      "difficulty": "medium",
+      "retrieved_top_3": [
+        "kubernetes-docs:503-errors.md",
+        "kubernetes-docs:503-errors.md",
+        "kubernetes-docs:oomkilled.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 2.4484591188793923,
+      "recall_10": 4.0,
+      "latency_ms": 16.3271427154541
+    },
+    {
+      "query": "prometheus rate query example",
+      "expected_doc_id": "kubernetes-docs:prometheus-alerting.md",
+      "difficulty": "medium",
+      "retrieved_top_3": [
+        "kubernetes-docs:grafana-dashboards.md",
+        "kubernetes-docs:prometheus-alerting.md",
+        "kubernetes-docs:prometheus-alerting.md"
+      ],
+      "rank": 2,
+      "mrr": 0.5,
+      "ndcg_10": 1.894939644978184,
+      "recall_10": 4.0,
+      "latency_ms": 14.886140823364258
+    },
+    {
+      "query": "alerting rule for high cpu usage",
+      "expected_doc_id": "kubernetes-docs:prometheus-alerting.md",
+      "difficulty": "easy",
+      "retrieved_top_3": [
+        "kubernetes-docs:prometheus-alerting.md",
+        "kubernetes-docs:prometheus-alerting.md",
+        "kubernetes-docs:prometheus-alerting.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 2.894939644978184,
+      "recall_10": 5.0,
+      "latency_ms": 15.724897384643555
+    },
+    {
+      "query": "grafana dashboard red method",
+      "expected_doc_id": "kubernetes-docs:grafana-dashboards.md",
+      "difficulty": "easy",
+      "retrieved_top_3": [
+        "kubernetes-docs:grafana-dashboards.md",
+        "kubernetes-docs:grafana-dashboards.md",
+        "kubernetes-docs:grafana-dashboards.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 2.5177825608059994,
+      "recall_10": 4.0,
+      "latency_ms": 15.901803970336914
+    },
+    {
+      "query": "latency heatmap promql",
+      "expected_doc_id": "kubernetes-docs:grafana-dashboards.md",
+      "difficulty": "medium",
+      "retrieved_top_3": [
+        "kubernetes-docs:grafana-dashboards.md",
+        "kubernetes-docs:grafana-dashboards.md",
+        "kubernetes-docs:prometheus-alerting.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 1.6309297535714575,
+      "recall_10": 2.0,
+      "latency_ms": 466.3240909576416
+    },
+    {
+      "query": "debug crashloopbackoff",
+      "expected_doc_id": "kubernetes-docs:crashloopbackoff.md",
+      "difficulty": "easy",
+      "retrieved_top_3": [
+        "kubernetes-docs:crashloopbackoff.md",
+        "kubernetes-docs:oomkilled.md",
+        "kubernetes-docs:crashloopbackoff.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 1.5,
+      "recall_10": 2.0,
+      "latency_ms": 16.511201858520508
+    },
+    {
+      "query": "pod restarting continuously",
+      "expected_doc_id": "kubernetes-docs:crashloopbackoff.md",
+      "difficulty": "medium",
+      "retrieved_top_3": [
+        "kubernetes-docs:crashloopbackoff.md",
+        "kubernetes-docs:prometheus-alerting.md",
+        "kubernetes-docs:oomkilled.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 1.8175293653079347,
+      "recall_10": 3.0,
+      "latency_ms": 16.64280891418457
+    },
+    {
+      "query": "what is exit code 137",
+      "expected_doc_id": "kubernetes-docs:oomkilled.md",
+      "difficulty": "easy",
+      "retrieved_top_3": [
+        "kubernetes-docs:oomkilled.md",
+        "kubernetes-docs:crashloopbackoff.md",
+        "kubernetes-docs:prometheus-alerting.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 1.0,
+      "recall_10": 1.0,
+      "latency_ms": 16.784191131591797
+    },
+    {
+      "query": "increase container memory limit",
+      "expected_doc_id": "kubernetes-docs:oomkilled.md",
+      "difficulty": "medium",
+      "retrieved_top_3": [
+        "kubernetes-docs:crashloopbackoff.md",
+        "kubernetes-docs:oomkilled.md",
+        "kubernetes-docs:prometheus-alerting.md"
+      ],
+      "rank": 2,
+      "mrr": 0.5,
+      "ndcg_10": 1.4484591188793923,
+      "recall_10": 3.0,
+      "latency_ms": 17.275094985961914
+    },
+    {
+      "query": "service mesh sidecar 503",
+      "expected_doc_id": "kubernetes-docs:503-errors.md",
+      "difficulty": "hard",
+      "retrieved_top_3": [
+        "kubernetes-docs:503-errors.md",
+        "kubernetes-docs:503-errors.md",
+        "kubernetes-docs:503-errors.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 2.5616063116448506,
+      "recall_10": 4.0,
+      "latency_ms": 16.3877010345459
+    },
+    {
+      "query": "istio upstream connect error",
+      "expected_doc_id": "kubernetes-docs:503-errors.md",
+      "difficulty": "medium",
+      "retrieved_top_3": [
+        "kubernetes-docs:503-errors.md",
+        "kubernetes-docs:503-errors.md",
+        "kubernetes-docs:503-errors.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 2.5616063116448506,
+      "recall_10": 4.0,
+      "latency_ms": 15.391111373901367
+    },
+    {
+      "query": "alertmanager configuration basics",
+      "expected_doc_id": "kubernetes-docs:prometheus-alerting.md",
+      "difficulty": "medium",
+      "retrieved_top_3": [
+        "kubernetes-docs:prometheus-alerting.md",
+        "kubernetes-docs:prometheus-alerting.md",
+        "kubernetes-docs:crashloopbackoff.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 2.320470274012813,
+      "recall_10": 4.0,
+      "latency_ms": 17.524003982543945
+    },
+    {
+      "query": "detecting memory leaks with prometheus",
+      "expected_doc_id": "kubernetes-docs:prometheus-alerting.md",
+      "difficulty": "hard",
+      "retrieved_top_3": [
+        "kubernetes-docs:oomkilled.md",
+        "kubernetes-docs:oomkilled.md",
+        "kubernetes-docs:prometheus-alerting.md"
+      ],
+      "rank": 3,
+      "mrr": 0.3333333333333333,
+      "ndcg_10": 1.2640098914067264,
+      "recall_10": 3.0,
+      "latency_ms": 17.27581024169922
+    },
+    {
+      "query": "visualizing error rates in grafana",
+      "expected_doc_id": "kubernetes-docs:grafana-dashboards.md",
+      "difficulty": "medium",
+      "retrieved_top_3": [
+        "kubernetes-docs:grafana-dashboards.md",
+        "kubernetes-docs:prometheus-alerting.md",
+        "kubernetes-docs:grafana-dashboards.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 1.9306765580733931,
+      "recall_10": 3.0,
+      "latency_ms": 16.46113395690918
+    },
+    {
+      "query": "grafana variables template",
+      "expected_doc_id": "kubernetes-docs:grafana-dashboards.md",
+      "difficulty": "hard",
+      "retrieved_top_3": [
+        "kubernetes-docs:grafana-dashboards.md",
+        "kubernetes-docs:grafana-dashboards.md",
+        "kubernetes-docs:grafana-dashboards.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 2.48713694067948,
+      "recall_10": 4.0,
+      "latency_ms": 14.815807342529297
+    },
+    {
+      "query": "liveness probe vs readiness probe",
+      "expected_doc_id": "kubernetes-docs:crashloopbackoff.md",
+      "difficulty": "medium",
+      "retrieved_top_3": [
+        "kubernetes-docs:503-errors.md",
+        "kubernetes-docs:crashloopbackoff.md",
+        "kubernetes-docs:crashloopbackoff.md"
+      ],
+      "rank": 2,
+      "mrr": 0.5,
+      "ndcg_10": 1.4199945798893454,
+      "recall_10": 3.0,
+      "latency_ms": 16.947031021118164
+    },
+    {
+      "query": "troubleshoot pod startup failure",
+      "expected_doc_id": "kubernetes-docs:crashloopbackoff.md",
+      "difficulty": "medium",
+      "retrieved_top_3": [
+        "kubernetes-docs:crashloopbackoff.md",
+        "kubernetes-docs:crashloopbackoff.md",
+        "kubernetes-docs:prometheus-alerting.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 1.6309297535714575,
+      "recall_10": 2.0,
+      "latency_ms": 16.32523536682129
+    },
+    {
+      "query": "java container memory settings",
+      "expected_doc_id": "kubernetes-docs:oomkilled.md",
+      "difficulty": "medium",
+      "retrieved_top_3": [
+        "kubernetes-docs:oomkilled.md",
+        "kubernetes-docs:oomkilled.md",
+        "kubernetes-docs:prometheus-alerting.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 2.0177825608059994,
+      "recall_10": 3.0,
+      "latency_ms": 15.334129333496094
+    },
+    {
+      "query": "node js memory profiling",
+      "expected_doc_id": "kubernetes-docs:oomkilled.md",
+      "difficulty": "hard",
+      "retrieved_top_3": [
+        "kubernetes-docs:oomkilled.md",
+        "kubernetes-docs:oomkilled.md",
+        "kubernetes-docs:prometheus-alerting.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 2.0616063116448506,
+      "recall_10": 3.0,
+      "latency_ms": 15.196800231933594
+    },
+    {
+      "query": "load balancer health check 503",
+      "expected_doc_id": "kubernetes-docs:503-errors.md",
+      "difficulty": "hard",
+      "retrieved_top_3": [
+        "kubernetes-docs:503-errors.md",
+        "kubernetes-docs:503-errors.md",
+        "kubernetes-docs:503-errors.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 2.5616063116448506,
+      "recall_10": 4.0,
+      "latency_ms": 17.142057418823242
+    },
+    {
+      "query": "ingress nginx 503 error",
+      "expected_doc_id": "kubernetes-docs:503-errors.md",
+      "difficulty": "medium",
+      "retrieved_top_3": [
+        "kubernetes-docs:503-errors.md",
+        "kubernetes-docs:503-errors.md",
+        "kubernetes-docs:503-errors.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 2.5616063116448506,
+      "recall_10": 4.0,
+      "latency_ms": 16.132831573486328
+    },
+    {
+      "query": "alert if disk space low",
+      "expected_doc_id": "kubernetes-docs:prometheus-alerting.md",
+      "difficulty": "easy",
+      "retrieved_top_3": [
+        "kubernetes-docs:prometheus-alerting.md",
+        "kubernetes-docs:grafana-dashboards.md",
+        "kubernetes-docs:crashloopbackoff.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 2.5070698857492903,
+      "recall_10": 5.0,
+      "latency_ms": 16.65496826171875
+    },
+    {
+      "query": "prometheus duration for",
+      "expected_doc_id": "kubernetes-docs:prometheus-alerting.md",
+      "difficulty": "medium",
+      "retrieved_top_3": [
+        "kubernetes-docs:prometheus-alerting.md",
+        "kubernetes-docs:prometheus-alerting.md",
+        "kubernetes-docs:prometheus-alerting.md"
+      ],
+      "rank": 1,
+      "mrr": 1.0,
+      "ndcg_10": 2.747424626021168,
+      "recall_10": 5.0,
+      "latency_ms": 13.952970504760742
+    }
+  ]
+}
