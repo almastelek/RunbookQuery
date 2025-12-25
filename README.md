@@ -4,7 +4,8 @@
 
 RunbookQuery is a specialized search engine designed for SREs to quickly find relevant troubleshooting documentation, runbooks, and GitHub issues. It combines **BM25** (keyword matching) with **Semantic Search** (vector embeddings) using **Reciprocal Rank Fusion (RRF)** to deliver high-quality results even when queries use different terminology than the documentation.
 
-![RunbookQuery UI](docs/ui_screenshot.png)
+![RunbookQuery UI](<img width="1512" height="948" alt="image" src="https://github.com/user-attachments/assets/52f9ef11-0ea1-45f0-8286-8d46aeef6dce" />)
+
 
 ## Features
 
