@@ -28,6 +28,8 @@ except Exception:  # pragma: no cover
 
 from runbook_query.config import get_settings
 
+import ssl
+
 
 class Base(DeclarativeBase):
     """Base class for all ORM models."""
@@ -170,6 +172,15 @@ async def get_async_engine():
             "echo": settings.debug,
         }
 
+        connect_args = {}
+
+        url_obj = make_url(db_url)
+        if url_obj.drivername.endswith("+asyncpg"):
+            # Require SSL (Neon needs SSL)
+            connect_args["ssl"] = True
+            # OR, stricter:
+            # connect_args["ssl"] = ssl.create_default_context()
+
         # Pooling options should NOT be forced on SQLite.
         if not _is_sqlite(db_url):
             engine_kwargs.update(
@@ -181,7 +192,7 @@ async def get_async_engine():
                 }
             )
 
-        _async_engine = create_async_engine(db_url, **engine_kwargs)
+        _async_engine = create_async_engine(db_url, connect_args=connect_args, **engine_kwargs)
 
     return _async_engine
 
