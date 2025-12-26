@@ -4,6 +4,7 @@ from pathlib import Path
 from functools import lru_cache
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
+from pydantic import Field
 
 
 class Settings(BaseSettings):
@@ -18,7 +19,10 @@ class Settings(BaseSettings):
     # Paths
     data_dir: Path = Path("data")
     index_dir: Path = Path("data/indexes")
-    database_url: str = "sqlite+aiosqlite:///data/runbook_query.db"
+    database_url: str = Field(
+        default="sqlite+aiosqlite:///./data/runbook_query.db",
+        alias="DATABASE_URL",
+    )
 
     # Server
     host: str = "0.0.0.0"
