@@ -42,7 +42,7 @@ graph TD
     subgraph Ingestion Pipeline
         Docs[Markdown Docs] --> Parser[MarkdownParser]
         Parser --> Chunker[HeadingChunker]
-        Chunker --> DB[(SQLite)]
+        Chunker --> DB[(Postgres)]
         DB --> Indexer[IndexManager]
         Indexer --> BM25
         Indexer --> Vector
