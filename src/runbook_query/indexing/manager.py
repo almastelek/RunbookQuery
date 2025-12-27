@@ -122,6 +122,44 @@ class IndexManager:
         except Exception as e:
             logger.error("index_load_failed", error=str(e))
             return False
+    
+    def ensure_indexes_present(self) -> bool:
+        """
+        Ensure index files exist locally. If missing and INDEXES_URL is set,
+        download and unzip them into index_dir.
+        """
+        settings = get_settings()
+        indexes_url = getattr(settings, "indexes_url", None)
+
+        # Already have an active index?
+        current_dir = self._get_current_dir()
+        if current_dir and (current_dir / self.BM25_FILENAME).exists():
+            return True
+
+        if not indexes_url:
+            logger.warning("indexes_missing_no_indexes_url")
+            return False
+
+        self.index_dir.mkdir(parents=True, exist_ok=True)
+        zip_path = self.index_dir / "indexes.zip"
+
+        logger.info("downloading_indexes", url=indexes_url)
+        urllib.request.urlretrieve(indexes_url, zip_path)
+
+        logger.info("unzipping_indexes", path=str(zip_path))
+        with zipfile.ZipFile(zip_path, "r") as z:
+            z.extractall(self.index_dir)
+
+        try:
+            zip_path.unlink()
+        except Exception:
+            pass
+
+        # After unzip, try again
+        current_dir = self._get_current_dir()
+        ok = bool(current_dir and (current_dir / self.BM25_FILENAME).exists())
+        logger.info("indexes_ready", ok=ok, current=str(current_dir) if current_dir else None)
+        return ok
 
     def _activate_version(self, version: str):
         """Atomically activate a new index version."""
