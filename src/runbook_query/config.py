@@ -24,6 +24,11 @@ class Settings(BaseSettings):
         alias="DATABASE_URL",
     )
 
+    indexes_url: str | None = Field(default=None, alias="INDEXES_URL")
+
+    # CORS
+    cors_origins: str = Field(default="http://localhost:5173", alias="CORS_ORIGINS")
+
     # Server
     host: str = "0.0.0.0"
     port: int = 8000

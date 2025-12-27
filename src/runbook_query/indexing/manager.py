@@ -12,6 +12,9 @@ from runbook_query.retrieval.bm25 import BM25Retriever
 from runbook_query.retrieval.vector import VectorRetriever
 from runbook_query.storage import ChunkRepository, get_session
 
+import zipfile
+import urllib.request
+
 logger = structlog.get_logger()
 
 

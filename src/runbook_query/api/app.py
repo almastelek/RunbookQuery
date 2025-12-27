@@ -27,7 +27,12 @@ async def lifespan(app: FastAPI):
 
     # Try to load existing indexes
     index_manager = get_index_manager(bm25, vector)
-    index_manager.load_indexes()
+    ready = index_manager.ensure_indexes_present()
+    loaded = index_manager.load_indexes()
+
+    if not (ready and loaded):
+        
+        pass
 
     # Initialize search service
     search_service = SearchService(bm25, vector, cache)
@@ -51,9 +56,11 @@ def create_app() -> FastAPI:
     )
 
     # CORS for frontend
+    origins = [o.strip() for o in settings.cors_origins.split(",") if o.strip()]
+
     app.add_middleware(
         CORSMiddleware,
-        allow_origins=["*"],  # TODO: Restrict in production
+        allow_origins=origins,
         allow_credentials=True,
         allow_methods=["*"],
         allow_headers=["*"],
