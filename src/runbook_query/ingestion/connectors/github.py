@@ -116,7 +116,7 @@ class GitHubIssuesConnector(BaseConnector):
 
                     yield RawDocument(
                         source_id=self.source_id,
-                        external_id=str(issue["number"]),
+                        external_id=f"github:{self.repo}#{issue['number']}",
                         title=issue["title"],
                         content=content,
                         url=issue["html_url"],
