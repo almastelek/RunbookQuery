@@ -5,6 +5,8 @@ import { ResultsList } from './components/ResultsList';
 import { useSearch } from './hooks/useSearch';
 import './index.css';
 
+import { Analytics } from "@vercel/analytics/react"
+
 function App() {
   const { results, loading, error, performSearch } = useSearch();
   const [filters, setFilters] = useState({
@@ -78,6 +80,7 @@ function App() {
           RunbookQuery — Hybrid search powered by BM25 + Sentence Transformers + FAISS
         </div>
       </footer>
+      <Analytics />
     </div>
   );
 }
