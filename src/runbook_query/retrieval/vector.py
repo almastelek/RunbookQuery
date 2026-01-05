@@ -26,6 +26,7 @@ class VectorRetriever:
             model_name: Sentence transformer model name
         """
         settings = get_settings()
+        self.enabled = os.getenv("ENABLE_VECTOR", "true").lower() == "true"
         self.model_name = model_name or settings.embedding_model
         self.batch_size = settings.embedding_batch_size
 
@@ -36,6 +37,8 @@ class VectorRetriever:
 
     def _get_model(self) -> SentenceTransformer:
         """Lazy load the embedding model."""
+        if not self.enabled:
+            raise RuntimeError("Vector retriever is disabled")
         if self._model is None:
             self._model = SentenceTransformer(self.model_name)
             self._embedding_dim = self._model.get_sentence_embedding_dimension()
@@ -182,7 +185,7 @@ class VectorRetriever:
     @property
     def is_ready(self) -> bool:
         """Check if the index is built and ready for search."""
-        return self._index is not None and len(self._chunk_ids) > 0
+        return self.enabled and self._index is not None and len(self._chunk_ids) > 0
 
     @property
     def chunk_count(self) -> int:
