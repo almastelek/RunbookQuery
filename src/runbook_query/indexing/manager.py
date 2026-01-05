@@ -149,7 +149,7 @@ class IndexManager:
 
         logger.info("unzipping_indexes", path=str(zip_path))
         with zipfile.ZipFile(zip_path, "r") as z:
-            z.extractall(".")
+            z.extractall(self.index_dir)#z.extractall(".")
 
         try:
             zip_path.unlink()
