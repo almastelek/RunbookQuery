@@ -1,6 +1,6 @@
 """Search API routes."""
-
 from fastapi import APIRouter, Depends, HTTPException
+import structlog
 
 from runbook_query.api.schemas import (
     ScoreBreakdownSchema,
@@ -51,6 +51,21 @@ async def search(
         },
         top_k=request.top_k,
         include_scores=request.include_scores,
+    )
+
+    logger = structlog.get_logger()
+
+    logger.info(
+        "api_search_debug",
+        service_id=id(service),
+        bm25_id=id(service.bm25),
+        vector_id=id(service.vector),
+        bm25_ready=service.bm25.is_ready,
+        vector_ready=service.vector.is_ready,
+        bm25_chunks=getattr(service.bm25, "chunk_count", None),
+        vector_chunks=getattr(service.vector, "chunk_count", None),
+        query=internal_request.query,
+        top_k=internal_request.top_k,
     )
 
     # Perform search
