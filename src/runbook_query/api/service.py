@@ -35,7 +35,7 @@ class SearchService:
     def __init__(
         self,
         bm25_retriever: BM25Retriever,
-        vector_retriever: VectorRetriever,
+        vector_retriever: VectorRetriever | None,
         cache: QueryCache,
     ):
         self.hybrid = HybridRetriever(bm25_retriever, vector_retriever)
