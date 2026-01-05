@@ -23,10 +23,8 @@ async def lifespan(app: FastAPI):
     # Initialize retrievers and load indexes
     bm25 = get_bm25_retriever()
     #vector = get_vector_retriever()
-    if settings.enable_vector:   # or env-based check
-        vector = get_vector_retriever()
-    else:
-        vector = None
+    settings = get_settings()
+    vector = get_vector_retriever() if settings.enable_vector else None
     cache = get_query_cache()
 
     # Try to load existing indexes
