@@ -4,6 +4,7 @@ import json
 import os
 from datetime import datetime
 from pathlib import Path
+from typing import Optional
 
 import structlog
 
@@ -37,7 +38,7 @@ class IndexManager:
     def __init__(
         self,
         bm25_retriever: BM25Retriever,
-        vector_retriever: VectorRetriever,
+        vector_retriever: VectorRetriever | None,
         index_dir: Path | None = None,
     ):
         settings = get_settings()
@@ -78,7 +79,7 @@ class IndexManager:
         logger.info("bm25_index_built", chunk_count=self.bm25.chunk_count)
 
         # Build vector index (optional, as it's slower)
-        if include_vectors:
+        if include_vectors and self.vector is not None:
             self.vector.build_index(chunks)
             self.vector.save(
                 version_dir / self.FAISS_FILENAME,
@@ -113,7 +114,7 @@ class IndexManager:
             # Load FAISS
             faiss_path = current_dir / self.FAISS_FILENAME
             id_map_path = current_dir / self.ID_MAP_FILENAME
-            if faiss_path.exists() and id_map_path.exists():
+            if self.vector is not None and faiss_path.exists() and id_map_path.exists():
                 self.vector.load(faiss_path, id_map_path)
                 logger.info("vector_index_loaded", chunk_count=self.vector.chunk_count)
 
@@ -188,8 +189,8 @@ class IndexManager:
         return {
             "bm25_ready": self.bm25.is_ready,
             "bm25_chunks": self.bm25.chunk_count,
-            "vector_ready": self.vector.is_ready,
-            "vector_chunks": self.vector.chunk_count,
+            "vector_ready": self.vector.is_ready if self.vector is not None else False,
+            "vector_chunks": self.vector.chunk_count if self.vector is not None else 0,
             "current_version": current_dir.name if current_dir else None,
         }
 
@@ -200,7 +201,7 @@ _manager: IndexManager | None = None
 
 def get_index_manager(
     bm25_retriever: BM25Retriever,
-    vector_retriever: VectorRetriever,
+    vector_retriever: VectorRetriever | None,
 ) -> IndexManager:
     """Get the singleton index manager."""
     global _manager
