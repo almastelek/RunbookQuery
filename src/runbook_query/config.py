@@ -46,6 +46,7 @@ class Settings(BaseSettings):
     chunk_overlap_tokens: int = 50
 
     # Embedding
+    enable_vector: bool = Field(default=True, alias="ENABLE_VECTOR")
     embedding_model: str = "sentence-transformers/all-MiniLM-L6-v2"
     embedding_batch_size: int = 32
 
