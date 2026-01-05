@@ -1,4 +1,4 @@
-const API_BASE = 'http://localhost:8000';
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:8000';
 
 export async function search(query, filters = {}, topK = 10) {
   const response = await fetch(`${API_BASE}/search`, {
