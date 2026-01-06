@@ -109,16 +109,19 @@ class IndexManager:
             bm25_path = current_dir / self.BM25_FILENAME
             if bm25_path.exists():
                 self.bm25.load(bm25_path)
+                bm25_loaded = True
                 logger.info("bm25_index_loaded", chunk_count=self.bm25.chunk_count)
 
             # Load FAISS
             faiss_path = current_dir / self.FAISS_FILENAME
             id_map_path = current_dir / self.ID_MAP_FILENAME
+            vector_loaded = False
             if self.vector is not None and faiss_path.exists() and id_map_path.exists():
                 self.vector.load(faiss_path, id_map_path)
+                vector_loaded = True
                 logger.info("vector_index_loaded", chunk_count=self.vector.chunk_count)
 
-            return True
+            return bm25_loaded
 
         except Exception as e:
             logger.error("index_load_failed", error=str(e))
