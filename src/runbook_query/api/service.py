@@ -2,7 +2,7 @@
 
 import re
 import time
-from typing import Literal
+from typing import Literal, Optional
 
 import structlog
 
@@ -133,14 +133,16 @@ class SearchService:
         """
         Retrieve results with fallback to BM25 if vector fails.
         """
+        vector_ready = (self.vector is not None and self.vector.is_ready)
+        bm25_ready = self.bm25.is_ready
         try:
-            if self.vector.is_ready and self.bm25.is_ready:
+            if vector_ready and bm25_ready:
                 results = self.hybrid.search(query, top_k=top_k)
                 return results, "hybrid"
-            elif self.bm25.is_ready:
+            elif bm25_ready:
                 results = self.hybrid.search_bm25_only(query, top_k=top_k)
                 return results, "bm25_only"
-            elif self.vector.is_ready:
+            elif vector_ready:
                 results = self.hybrid.search_vector_only(query, top_k=top_k)
                 return results, "vector_only"
             else:
@@ -148,7 +150,7 @@ class SearchService:
         except Exception as e:
             # Fallback to BM25 only
             logger.warning("vector_search_failed_fallback", error=str(e))
-            if self.bm25.is_ready:
+            if bm25_ready:
                 results = self.hybrid.search_bm25_only(query, top_k=top_k)
                 return results, "bm25_only"
             return [], "bm25_only"
