@@ -159,11 +159,43 @@ class IndexManager:
         except Exception:
             pass
 
-        # After unzip, try again
+        # After unzip, try to locate a usable index folder and activate it
         current_dir = self._get_current_dir()
+        if not current_dir:
+            # Find bm25 index anywhere under index_dir
+            bm25_candidates = list(self.index_dir.rglob(self.BM25_FILENAME))
+            if not bm25_candidates:
+                logger.error(
+                    "indexes_unzipped_but_no_bm25_found",
+                    index_dir=str(self.index_dir),
+                )
+                return False
+
+            bm25_path = bm25_candidates[0]
+            version_dir = bm25_path.parent
+
+            logger.info(
+                "bm25_found_after_unzip",
+                bm25_path=str(bm25_path),
+                version_dir=str(version_dir),
+            )
+
+            # Create/replace current link to the discovered folder
+            current_link = self.index_dir / self.CURRENT_LINK
+            if current_link.exists() or current_link.is_symlink():
+                current_link.unlink()
+            current_link.symlink_to(version_dir.resolve())
+
+            current_dir = self._get_current_dir()
+
         ok = bool(current_dir and (current_dir / self.BM25_FILENAME).exists())
-        logger.info("indexes_ready", ok=ok, current=str(current_dir) if current_dir else None)
+        logger.info(
+            "indexes_ready",
+            ok=ok,
+            current=str(current_dir) if current_dir else None,
+        )
         return ok
+
 
     def _activate_version(self, version: str):
         """Atomically activate a new index version."""
