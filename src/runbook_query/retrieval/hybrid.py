@@ -27,7 +27,7 @@ class HybridRetriever:
     def __init__(
         self,
         bm25_retriever: BM25Retriever,
-        vector_retriever: VectorRetriever,
+        vector_retriever: VectorRetriever | None,
         rrf_k: int = 60,
         bm25_weight: float = 0.5,
         vector_weight: float = 0.5,
@@ -67,7 +67,7 @@ class HybridRetriever:
         """
         # Get results from both retrievers
         bm25_results = self.bm25.search(query, top_k=fetch_k) if self.bm25.is_ready else []
-        vector_results = self.vector.search(query, top_k=fetch_k) if self.vector.is_ready else []
+        vector_results = self.vector.search(query, top_k=fetch_k) if (self.vector is not None and self.vector.is_ready) else []
 
         # Merge using RRF
         return self._reciprocal_rank_fusion(
@@ -92,6 +92,8 @@ class HybridRetriever:
 
     def search_vector_only(self, query: str, top_k: int = 10) -> list[HybridResult]:
         """Search using only vector retrieval."""
+        if self.vector is None or not self.vector.is_ready:
+            return []
         results = self.vector.search(query, top_k=top_k)
         return [
             HybridResult(
@@ -167,16 +169,17 @@ class HybridRetriever:
     @property
     def is_ready(self) -> bool:
         """Check if at least one retriever is ready."""
-        return self.bm25.is_ready or self.vector.is_ready
+        return self.bm25.is_ready or (self.vector is not None and self.vector.is_ready)
 
     @property
     def mode(self) -> str:
         """Return the current retrieval mode based on available indexes."""
-        if self.bm25.is_ready and self.vector.is_ready:
+        vector_ready = self.vector is not None and self.vector.is_ready
+        if self.bm25.is_ready and vector_ready:
             return "hybrid"
         elif self.bm25.is_ready:
             return "bm25_only"
-        elif self.vector.is_ready:
+        elif vector_ready:
             return "vector_only"
         else:
             return "none"
