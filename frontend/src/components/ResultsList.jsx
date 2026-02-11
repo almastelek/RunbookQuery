@@ -4,7 +4,6 @@ export function ResultsList({ results }) {
     if (!results) {
         return (
             <div className="empty-state">
-                <div className="empty-icon">🔎</div>
                 <h3 className="empty-title">Start searching</h3>
                 <p className="empty-description">
                     Search for error codes, symptoms, or troubleshooting topics to find relevant runbooks and documentation.
@@ -19,7 +18,6 @@ export function ResultsList({ results }) {
     if (results.results.length === 0) {
         return (
             <div className="empty-state">
-                <div className="empty-icon">😕</div>
                 <h3 className="empty-title">No results found</h3>
                 <p className="empty-description">
                     Try different keywords or check your filters.
@@ -36,14 +34,14 @@ export function ResultsList({ results }) {
                 </span>
                 <div className="results-meta">
                     <span className="meta-item">
-                        ⚡ {results.latency_ms.toFixed(0)}ms
+                        <span style={{ opacity: 0.6 }}>Latency:</span> {results.latency_ms.toFixed(0)}ms
                     </span>
                     <span className="meta-item">
-                        🔀 {results.retrieval_mode}
+                        <span style={{ opacity: 0.6 }}>Mode:</span> {results.retrieval_mode}
                     </span>
                     {results.cache_hit && (
                         <span className="meta-item" style={{ color: 'var(--color-success)' }}>
-                            💾 cached
+                            Cached
                         </span>
                     )}
                 </div>

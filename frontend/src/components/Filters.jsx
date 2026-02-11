@@ -19,7 +19,7 @@ export function Filters({ filters, onFilterChange }) {
                         className={`filter-button ${currentType === type ? 'active' : ''}`}
                         onClick={() => handleSourceTypeClick(type)}
                     >
-                        {type === 'all' ? '📚 All' : type === 'docs' ? '📄 Docs' : '🐛 Issues'}
+                        {type === 'all' ? 'All' : type === 'docs' ? 'Docs' : 'Issues'}
                     </button>
                 ))}
             </div>

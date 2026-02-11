@@ -11,7 +11,7 @@
   
   --color-accent-primary: #58a6ff;
   --color-accent-secondary: #1f6feb;
-  --color-accent-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  --color-accent-gradient: linear-gradient(135deg, #1f6feb 0%, #58a6ff 100%);
   
   --color-success: #3fb950;
   --color-warning: #d29922;
@@ -22,7 +22,7 @@
   
   /* Semantic colors */
   --color-docs: #58a6ff;
-  --color-issues: #a371f7;
+  --color-issues: #f85149;
   
   /* Spacing */
   --spacing-xs: 0.25rem;
@@ -369,7 +369,7 @@ body {
 }
 
 .chip-issues {
-  background: rgba(163, 113, 247, 0.15);
+  background: rgba(248, 81, 73, 0.15);
   color: var(--color-issues);
 }
 
@@ -491,11 +491,6 @@ body {
   color: var(--color-text-muted);
 }
 
-.empty-icon {
-  font-size: 3rem;
-  margin-bottom: var(--spacing-md);
-  opacity: 0.5;
-}
 
 .empty-title {
   font-size: 1.25rem;

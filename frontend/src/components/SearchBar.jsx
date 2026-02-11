@@ -19,7 +19,6 @@ export function SearchBar({ onSearch, loading }) {
     return (
         <div className="search-container">
             <form className="search-box" onSubmit={handleSubmit}>
-                <span className="search-icon">🔍</span>
                 <input
                     type="text"
                     className="search-input"

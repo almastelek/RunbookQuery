@@ -31,7 +31,7 @@ export function ResultCard({ result, rank }) {
 
             <div className="result-meta">
                 <span className={`result-chip chip-${result.source_type}`}>
-                    {result.source_type === 'docs' ? '📄' : '🐛'} {result.source_type}
+                    {result.source_type === 'docs' ? 'Documentation' : 'Issue'}
                 </span>
                 {result.project && result.project !== 'unknown' && (
                     <span className="result-chip chip-project">
